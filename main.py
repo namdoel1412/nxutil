@@ -1,9 +1,13 @@
 from fastapi import FastAPI
 from fastapi import FastAPI,  Query
+from pydantic import BaseModel
 import uvicorn
 import os
+from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 
+class Item(BaseModel):
+    logs: List[str]
 
 app = FastAPI()
 app.add_middleware(
@@ -16,12 +20,13 @@ app.add_middleware(
 
 
 @app.post("/items")
-async def create_item(items: str = Query([])):
+async def create_item(item: Item):
     f = open("naxsi.log","w+")
-    for i in items:
+    for i in item.logs:
         f.write(f"{i}\n")
-    os.system("python nx_util.py -l naxsi.log -o -p 1")
-    return items
+    res = os.system("python nx_util.py -l naxsi.log -o -p 1")
+    print(res)
+    return res
 
 if __name__ == '__main__':
     try:
