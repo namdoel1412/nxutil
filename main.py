@@ -29,4 +29,5 @@ if __name__ == '__main__':
                 workers=1, limit_concurrency=1000, limit_max_requests=1000)
     except Exception as e:
        print("Oops!", e.__class__, " error when start serve a connection")
+       print(str(e))
        print("Next entry.")
