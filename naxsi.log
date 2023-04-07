@@ -1,1 +1,1 @@
-string
+2023/04/05 20:57:56 [error] 23661#23661: *7918 open() '/usr/share/nginx/html/favicon.ico' failed (2: No such file or directory), client: 1.53.89.255, server: testnaxsi.vn, request: 'GET /favicon.ico HTTP/1.1', host: 'testnaxsi.vn', referrer: 'http://testnaxsi.vn/?a=%3C
