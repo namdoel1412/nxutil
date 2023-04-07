@@ -1,23 +1,21 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
+from fastapi import FastAPI, Depends, Query, status, HTTPException
 import uvicorn
 import os
-
-class Item(BaseModel):
-    logs: List[str]
 
 
 app = FastAPI()
 
 
 @app.post("/items")
-async def create_item(item: Item):
-    f = open("guru99.log","w+")
-    for i in item.logs:
+async def create_item(items: str = Query([])):
+    f = open("naxsi.log","w+")
+    for i in items:
         f.write(f"{i}\n")
     os.system("python nx_util.py -l naxsi.log -o -p 1")
-    return item
+    return items
 
 if __name__ == '__main__':
     try:
