@@ -25,7 +25,7 @@ async def create_item(items: str = Query([])):
 
 if __name__ == '__main__':
     try:
-        uvicorn.run("main:app", host="localhost", port=3009, reload=False, log_level="info", debug=False,
+        uvicorn.run("main:app", host="localhost", port=3009, reload=False, log_level="info",
                 workers=1, limit_concurrency=1000, limit_max_requests=1000)
     except Exception as e:
        print("Oops!", e.__class__, " error when start serve a connection")
