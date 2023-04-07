@@ -1,7 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import List
-from fastapi import FastAPI, Depends, Query, status, HTTPException
+from fastapi import FastAPI,  Query
 import uvicorn
 import os
 
