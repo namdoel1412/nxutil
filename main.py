@@ -49,12 +49,14 @@ app.add_middleware(
 
 @app.post("/whitelist")
 async def create_item(item: Item=Body(...)):
-    f = open("/usr/share/nginx/whitelist/testnaxsi.vn.log","w+")
+    f = open("naxsi.log","w+")
     for i in item.logs:
         f.write(f"{i}\n")
-    res1 = os.popen('python nx_util.py -l /usr/share/nginx/whitelist/testnaxsi.vn.log -o -p 1').read()
-    res = os.popen('python nx_util.py -l /usr/share/nginx/whitelist/testnaxsi.vn.log -o -p 1 >> /usr/share/nginx/whitelist/testnaxsi.wl.rules').read()
+    f.close()
+    res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1').read()
+    res = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 >> /etc/nginx/naxsi.d/testnaxsi.wl.rules').read()
     print(res1)
+    print(res)
     return res1
 
 if __name__ == '__main__':
