@@ -117,7 +117,7 @@ if __name__ == "__main__":
 		base_rules, opti_rules = wl.opti_rules_back()
 		opti_rules.sort(lambda a,b: (b['hratio']+(b['pratio']*3)) < (a['hratio']+(a['pratio']*3)))
 		r = wl.format_rules_output(wl.final_rules)
-		print r
+		print(r)
 	if options.dst_file is not None:
 		logging.info("Outputing HTML report to ["+options.dst_file+"]")
 		report = NxReportGen(options.dst_file, config.data_dir, sql)
