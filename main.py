@@ -48,7 +48,7 @@ app.add_middleware(
 
 
 @app.post("/whitelist")
-async def create_item(item: Item=Body(...)):
+async def create_whitelist(item: Item=Body(...)):
     f = open("naxsi.log","w+")
     for i in item.logs:
         f.write(f"{i}\n")
@@ -56,6 +56,20 @@ async def create_item(item: Item=Body(...)):
     res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1').read()
     res = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 >> /etc/nginx/naxsi.d/testnaxsi.wl.rules').read()
     print(res1)
+    print(res)
+    return res1
+
+@app.post("/undo")
+async def undo_whitelist(item: Item=Body(...)):
+    f = open("naxsi.log","w+")
+    for i in item.logs:
+        f.write(f"{i}\n")
+    f.close()
+    res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 | grep BasicRule').read()
+    print('rule: ')
+    print(res1)
+    res = os.popen(f"sed -i 's/{res1}/#{res1}/' /etc/nginx/naxsi.d/testnaxsi.wl.rules").read()
+    print('replace result: ')
     print(res)
     return res1
 
