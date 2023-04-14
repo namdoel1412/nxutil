@@ -70,7 +70,7 @@ async def undo_whitelist(item: Item=Body(...)):
     print('rule: ')
     print(res1)
     # preTest = res1.replace('/', 'slashmainchange_gmo')
-    res = os.popen(f"sed -i 's${res1}$#{res1}$g' /etc/nginx/naxsi.d/testnaxsi.wl.rules").read()
+    res = os.popen(f"sed -i 's!{res1}!#!g' /etc/nginx/naxsi.d/testnaxsi.wl.rules").read()
     print('replace result: ')
     print(res)
     os.popen('systemctl restart nginx')
