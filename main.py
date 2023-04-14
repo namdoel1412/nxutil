@@ -55,6 +55,7 @@ async def create_whitelist(item: Item=Body(...)):
     f.close()
     res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1').read()
     res = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 >> /etc/nginx/naxsi.d/testnaxsi.wl.rules').read()
+    os.popen('systemctl restart nginx')
     print(res1)
     print(res)
     return res1
@@ -71,6 +72,7 @@ async def undo_whitelist(item: Item=Body(...)):
     res = os.popen(f"sed -i 's/{res1}/#{res1}/' /etc/nginx/naxsi.d/testnaxsi.wl.rules").read()
     print('replace result: ')
     print(res)
+    os.popen('systemctl restart nginx')
     return res1
 
 if __name__ == '__main__':
