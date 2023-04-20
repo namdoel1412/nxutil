@@ -66,13 +66,13 @@ async def undo_whitelist(item: Item=Body(...)):
     for i in item.logs:
         f.write(f"{i}\n")
     f.close()
-    res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 | grep BasicRule').read()
+    res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1').read() # | grep BasicRule
     print('rule: ')
     print(res1)
     lstRules = res1.splitlines()
     for item in lstRules:
         print(item)
-        subres = os.popen(f"sed -i 's!{item}!#!g' /etc/nginx/naxsi.d/testnaxsi.wl.rules").read()
+        subres = os.popen(f"sed -i 's!{item}!!g' /etc/nginx/naxsi.d/testnaxsi.wl.rules").read()
         print(subres)
     os.popen('systemctl restart nginx')
     return res1
