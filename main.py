@@ -54,7 +54,7 @@ async def create_whitelist(item: Item=Body(...)):
         f.write(f"{i}\n")
     f.close()
     res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1').read()
-    res = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 | grep BasicRule >> /etc/nginx/naxsi.d/testnaxsi.wl.rules').read()
+    res = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 >> /etc/nginx/naxsi.d/testnaxsi.wl.rules').read()
     os.popen('systemctl restart nginx')
     print(res1)
     print(res)
