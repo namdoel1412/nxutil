@@ -37,7 +37,7 @@ class Item(BaseModel):
 
 #         return custom_route_handler
 
-app = FastAPI()
+app = FastAPI(title='NAXSI')
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
