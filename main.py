@@ -15,6 +15,7 @@ import json
 
 class Item(BaseModel):
     logs: List[str]
+    path: str
 
 # class CustomRoute(APIRoute):
 #     def __init__(self, *args, **kwargs) -> None:
@@ -54,7 +55,7 @@ async def create_whitelist(item: Item=Body(...)):
         f.write(f"{i}\n")
     f.close()
     res1 = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1').read()
-    res = os.popen('python nx_util.py -l $(pwd)/naxsi.log -o -p 1 >> /etc/nginx/naxsi.d/testnaxsi.wl.rules').read()
+    res = os.popen(f'python nx_util.py -l $(pwd)/naxsi.log -o -p 1 >> {item.path}').read()
     os.popen('systemctl restart nginx')
     print(res1)
     print(res)
@@ -72,9 +73,9 @@ async def undo_whitelist(item: Item=Body(...)):
     lstRules = res1.splitlines()
     for item in lstRules:
         print(item)
-        subres = os.popen(f"sed -i 's!{item}!!g' /etc/nginx/naxsi.d/testnaxsi.wl.rules").read()
+        subres = os.popen(f"sed -i 's!{item}!!g' {item.path}").read()
         print(subres)
-    os.popen(f"sed -i '/^[[:space:]]*$/d' /etc/nginx/naxsi.d/testnaxsi.wl.rules")
+    os.popen(f"sed -i '/^[[:space:]]*$/d' {item.path}")
     os.popen('systemctl restart nginx')
     return res1
 
